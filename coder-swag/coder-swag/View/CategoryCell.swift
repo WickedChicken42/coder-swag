@@ -13,7 +13,8 @@ class CategoryCell: UITableViewCell {
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var categoryTitle: UILabel!
     
-    // Don't set the View's properites directly - A View should manage itself so we created a function to handle setting up the view itself.
+    // Don't set the View's properites directly
+    // A View should manage itself so we created a function to handle setting up the view itself.
     func updateViews(category: Category) {
         categoryImage.image = UIImage(named: category.imageName)
         categoryTitle.text = category.title

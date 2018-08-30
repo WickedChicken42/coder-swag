@@ -46,6 +46,26 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         return 180.0
     }
     
+    // The event used to grab the item that was selected in the CollectionView.
+    // We then get the category and send it to the ProductsVC via performSegue to go to the next screen
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let category = DataService.instance.getCategories()[indexPath.row]
+        performSegue(withIdentifier: "ProductsVC", sender: category)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let productsVC = segue.destination as? ProductsVC {
+            // Set the back button text to empty so that only the arrow shows in the nav bar
+            let barBtn = UIBarButtonItem()
+            barBtn.title = ""
+            navigationItem.backBarButtonItem = barBtn
+            
+            // Initialize the product data in the ProductsVC
+            assert(sender as? Category !=  nil)
+            productsVC.initProducts(category: sender as! Category)
+
+        }
+    }
     
 }
 
